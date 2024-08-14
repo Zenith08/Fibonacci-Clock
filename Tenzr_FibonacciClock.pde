@@ -52,10 +52,14 @@ void draw() {
   int minutes = (int)Math.floor((totalSeconds % 3600.0) / 60);
   int seconds = (int)Math.floor(totalSeconds % 60);
   
+  String secondsS = zeroPad(seconds);
+  String minutesS = zeroPad(minutes);
+  String hoursS = "" + hours;
+
   if (hours != 0) {
-    text("Next alarm in: " + hours + ":" + minutes + ":" + seconds, 320, 340);
+    text("Next alarm in: " + hoursS + ":" + minutesS + ":" + secondsS, 320, 340);
   } else {
-    text("Next alarm in: " + minutes + ":" + seconds, 320, 340);
+    text("Next alarm in: " + minutesS + ":" + secondsS, 320, 340);
   } 
 }
 
@@ -75,7 +79,7 @@ void drawCity(String name, int timeOffset, int x) {
   
   fill(0);
   textSize(24);
-  text(cityTime.getHour() + ":" + cityTime.getMinute(), x, 200);
+  text(cityTime.getHour() + ":" + zeroPad(cityTime.getMinute()), x, 200);
 }
 
 final float clockDiameter = 100;
@@ -102,6 +106,14 @@ void drawClock(LocalDateTime time, int x, int y) {
   fill(0);
   textSize(12);
   text("Angle between hands: " + clockAngles.angleDifference, x, y + clockDiameter/2 + 15);
+}
+
+private String zeroPad(int number) {
+  if (number < 10) {
+    return "0" + number;
+  } else {
+    return "" + number;
+  }
 }
 
 /**
